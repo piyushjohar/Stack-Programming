@@ -23,24 +23,25 @@ public class stackOfStacks {
         int input = scan.nextInt();
             while(input!=3){
                 
-                if(input==1){
-                System.out.println("Enter the number to push");
-                stackNo = push(scan.nextInt());                
+                if(input==1){                    
+                    System.out.println("Enter the number to push");
+                    stackNo = push(scan.nextInt());                                
                 }
                 if(input==2){
-                //pop();
+                  stackNo =  pop(); 
                 }                
                 System.out.println("1. Push");
                 System.out.println("2. Pop");
                 System.out.println("3. Exit");
                 input = scan.nextInt();                
-            }     
+            } 
+            if(stackNo!=-1)
             printStack(stackNo);
     }
         
     static int push(int x){
         if(cap==9&&top==9){
-            System.out.println("Stacks of stack are full");
+            System.out.println("Stacks of stack are full, cannot push");
             return 0;
         }
         else{
@@ -56,15 +57,41 @@ public class stackOfStacks {
                     cap++; top=0; stacks[cap][top]=x;
                 }
             }
-        }            
+        }             
         return cap;
+    }
+    
+    static int pop(){
+        if(cap==0){
+            if(top<0){
+                System.out.println("Stacks of stack is empty, cannot pop");
+                return -1;
+            }
+            else{
+                System.out.println("Popped Element is: " + stacks[cap][top]);
+                stacks[cap][top]= -1;
+                top--; return 0;
+            }            
+        }
+        else{
+            if(top==0){
+                System.out.println("Popped Element is: " + stacks[cap][top]);
+                stacks[cap][top]= -1;
+                top=9; cap--; return cap;
+             }
+            else{                
+                    System.out.println("Popped Element is: " + stacks[cap][top]);                
+                    stacks[cap][top]=-1;
+                    top--; return cap;                     
+            }
+        }                    
     }
     public static void printStack(int stackNo){
         
             for(int i =cap;i>=0;i--){
-                System.out.print("Stack Number" + stackNo + "-->");
+                System.out.print("Stack Number: " + ++stackNo + "\n");
                 for(int j =top; j>=0; j--){
-                    if(top>0)
+                    if(top>=0)
                     System.out.print(stacks[i][j] + "-->");                    
                 }
                 stackNo--;
